@@ -1,15 +1,32 @@
 ## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  inverse <- NULL
+  set <- function(y) {
+    x <<- y
+    inverse <<- NULL
+  }
+  get <- function() x
+  setinverse <- function(inv) inverse <<- inv
+  getinverse <- function() inverse
+  list(set = set, get = get, setinv = setinv, getinv = getinv)
 }
 
-
-## Write a short comment describing this function
+## Inverse of the matrix
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
+  inverse <- x$getinv()
+  if(!is.null(inverse)) {
+    message("BRB Getting Cached Results")
+    return(inv)
+  }
+  data <- x$get()
+  inverse <- solve(data, ...)
+  x$setinv(inv)
+  inverse
+}	
+
+#Testing 
+BORING <- matrix(rnorm(32),4,4)
+MEH <- makeCacheMatrix(BORING)
+cacheSolve(MEH)
